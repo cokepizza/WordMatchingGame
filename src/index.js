@@ -1,12 +1,14 @@
-// import Router from './Router';
+import Navigation from './Navigation';
+import HomePage from './pages/HomePage';
+import ResultPage from './pages/ResultPage';
 
-// const router = new Router();
-console.log('router');
-alert('hahah');
+const root = document.querySelector('#root');
+alert('hahaha');
 
-// const rootDiv = document.querySelector('root');
-
-// window.onpopstate = () => {
-//     rootDiv.innerHTML = window.location.pathname;
-//     // rootDiv.innerHTML = routes[window.location.pathname];
-// }
+new Navigation({
+    root,
+    router: [
+        {'/': HomePage},
+        {'/result': ResultPage},
+    ]
+});

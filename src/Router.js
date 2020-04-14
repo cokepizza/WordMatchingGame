@@ -1,5 +1,0 @@
-class Router {
-    constructor() {
-        
-    }
-}
