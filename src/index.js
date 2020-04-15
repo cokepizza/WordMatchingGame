@@ -1,14 +1,19 @@
 import Navigation from './Navigation';
-import HomePage from './pages/HomePage';
-import ResultPage from './pages/ResultPage';
+import Home from './pages/Home';
+import Result from './pages/Result';
 
-const root = document.querySelector('#root');
-alert('hahaha');
+const $root = document.querySelector('#root');
 
 new Navigation({
-    root,
+    $root,
     router: [
-        {'/': HomePage},
-        {'/result': ResultPage},
+        {
+            uri: '/',
+            page: Home
+        },
+        {
+            uri: '/result',
+            page: Result
+        },
     ]
 });

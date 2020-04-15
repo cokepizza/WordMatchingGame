@@ -1,0 +1,31 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.headerFrame {
+    display: flex;
+    flex: 1;
+}
+
+.bodyFrame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 3;
+}
+
+.footerFrame {
+    display: flex;
+    flex: 1;
+}
