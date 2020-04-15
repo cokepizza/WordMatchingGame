@@ -33,6 +33,7 @@ export default class TextInput {
     status_handler(status) {
         if(status === 0) {
             this.$textInput.classList.add('disabled');
+            this.$textInput.value = '';
         } else if(status === 2) {
             this.$textInput.classList.remove('disabled');
             this.$textInput.focus();

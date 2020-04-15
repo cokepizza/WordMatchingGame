@@ -24,7 +24,8 @@ export default class BillBoard {
 
     status_handler(status) {
         if(status === 0) {
-
+            this.data = [];
+            this.$billBoard.innerText = '';
         }
     }
 

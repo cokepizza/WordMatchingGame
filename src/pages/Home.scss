@@ -29,3 +29,9 @@ body {
     display: flex;
     flex: 1;
 }
+
+.noticeRow {
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+}

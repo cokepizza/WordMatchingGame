@@ -1,3 +1,4 @@
+import Timer from '../components/Timer';
 import BillBoard from '../components/BillBoard';
 import TextInput from '../components/TextInput';
 import DecisionButton from '../components/DecisionButton';
@@ -25,6 +26,13 @@ export default class Home {
         this.$bodyFrame.className = 'bodyFrame';
         this.$footerFrame = document.createElement('div');
         this.$footerFrame.className = 'footerFrame';
+        this.$noticeRow = document.createElement('div');
+        this.$noticeRow.className = 'noticeRow';
+
+        this.timer = new Timer({
+
+        });
+        this.$timer = this.timer.render();
 
         this.billBoard = new BillBoard({
 
@@ -48,6 +56,8 @@ export default class Home {
         });
         this.$decisionButton = this.decisionButton.render();
 
+        this.$noticeRow.appendChild(this.$timer);
+        this.$bodyFrame.appendChild(this.$noticeRow);
         this.$bodyFrame.appendChild(this.$billBoard);
         this.$bodyFrame.appendChild(this.$textInput);
         this.$bodyFrame.appendChild(this.$decisionButton);
@@ -56,7 +66,7 @@ export default class Home {
         this.$home.appendChild(this.$bodyFrame);
         this.$home.appendChild(this.$footerFrame);
 
-        this.children = [ this.billBoard, this.textInput, this.decisionButton ];
+        this.children = [ this.timer, this.billBoard, this.textInput, this.decisionButton ];
 
         //  initialize
         this.setState({
