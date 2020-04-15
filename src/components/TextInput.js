@@ -17,6 +17,15 @@ export default class TextInput {
         this.$textInput.addEventListener('keyup', onKeyUp);
     }
 
+    setState(status) {
+        if(status === 0) {
+            this.$textInput.classList.add('disabled');
+        } else if(status === 2) {
+            this.$textInput.classList.remove('disabled');
+            this.$textInput.focus();
+        }
+    }
+
     render() {
         return this.$textInput;
     }

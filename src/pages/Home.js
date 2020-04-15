@@ -3,9 +3,14 @@ import DecisionButton from '../components/DecisionButton';
 
 import './Home.scss';
 
+const dataURL = 'https://my-json-server.typicode.com/kakaopay-fe/resources/words';
+const defaultTime = 10;
+const statusModular = 3;
+
 export default class Home {
     $home = null;
     status = 0;
+    timeLimit = defaultTime;
 
     constructor() {
         this.$home = document.createDocumentFragment();
@@ -25,10 +30,10 @@ export default class Home {
         this.$textInput = this.textInput.render();
 
         this.decisionButton = new DecisionButton({
-            mention: ['시작', '초기화'],
+            mention: ['시작', 'loading', '초기화'],
             onClick: () => {
-                this.status = (this.status + 1) % 2;
-                this.statusPropagation(this.status);
+                this.status = (this.status + 1) % statusModular;
+                this.statusPropagation();
             }
         });
 
@@ -44,13 +49,25 @@ export default class Home {
         this.statusPropagation(status);
     }
 
-    statusPropagation() {
-        if(this.status === 0) {
-            this.$textInput.classList.add('disabled');
-        } else if(this.status === 1) {
-            this.$textInput.classList.remove('disabled');
-            this.$textInput.focus();
+    async statusPropagation () {
+        if(this.status === 1) {
+            try {
+                const response = await fetch(dataURL);
+                const data = response.json();
+                console.log(data);
+                this.data = data;
+
+                // sugar
+                setTimeout(() => {
+                    this.status = (this.status + 1) % statusModular;
+                    this.statusPropagation(this.status);    
+                }, 1000);
+            } catch(e) {
+                console.log(e);
+            }
         }
+        
+        this.textInput.setState(this.status);
         this.decisionButton.setState(this.status);
     }
 

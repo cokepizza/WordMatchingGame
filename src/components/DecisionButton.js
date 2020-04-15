@@ -8,7 +8,6 @@ export default class DecisionButton {
         this.$decisionButton.className = 'decisionButton';
         this.mention = mention;
         
-        this.$decisionButton.innerText = this.mention[0];
         this.$decisionButton.addEventListener('click', onClick);
     }
 
@@ -17,6 +16,11 @@ export default class DecisionButton {
     }
 
     setState(status) {
-        this.$decisionButton.innerText = this.mention[status];
+        if(this.mention[status] === 'loading') {
+            this.$decisionButton.innerHTML = 'aaa';
+        } else {
+            this.$decisionButton.innerHTML = this.mention[status];
+        }
+        
     }
 }
