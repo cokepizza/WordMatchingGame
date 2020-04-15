@@ -1,3 +1,4 @@
+import BillBoard from '../components/BillBoard';
 import TextInput from '../components/TextInput';
 import DecisionButton from '../components/DecisionButton';
 
@@ -11,6 +12,9 @@ export default class Home {
     $home = null;
     status = 0;
     timeLimit = defaultTime;
+    data = [];
+    index = 0;
+    children = [];
 
     constructor() {
         this.$home = document.createDocumentFragment();
@@ -22,6 +26,11 @@ export default class Home {
         this.$footerFrame = document.createElement('div');
         this.$footerFrame.className = 'footerFrame';
 
+        this.billBoard = new BillBoard({
+
+        });
+        this.$billBoard = this.billBoard.render();
+
         this.textInput = new TextInput({
             onSubmit: text => {
                 this.setState(text);
@@ -32,13 +41,14 @@ export default class Home {
         this.decisionButton = new DecisionButton({
             mention: ['시작', 'loading', '초기화'],
             onClick: () => {
-                this.status = (this.status + 1) % statusModular;
-                this.statusPropagation();
+                this.setState({
+                    status: (this.status + 1) % statusModular,
+                });
             }
         });
-
         this.$decisionButton = this.decisionButton.render();
 
+        this.$bodyFrame.appendChild(this.$billBoard);
         this.$bodyFrame.appendChild(this.$textInput);
         this.$bodyFrame.appendChild(this.$decisionButton);
 
@@ -46,33 +56,46 @@ export default class Home {
         this.$home.appendChild(this.$bodyFrame);
         this.$home.appendChild(this.$footerFrame);
 
-        this.statusPropagation(status);
+        this.children = [ this.billBoard, this.textInput, this.decisionButton ];
+
+        //  initialize
+        this.setState({
+            status: 0,
+        });
     }
 
-    async statusPropagation () {
+    setState(state) {
+        //  Check if there is a handler for the changed state 
+        Object.keys(state).forEach(key => {
+            if(this[`${key}_handler`]) {
+                this[`${key}_handler`](state[key]);
+            }
+        });
+
+        //  Spread the changed state to children
+        this.children.forEach(child => child.setState(state));
+    }
+
+    async status_handler(status) {
+        this.status = status;
         if(this.status === 1) {
             try {
                 const response = await fetch(dataURL);
-                const data = response.json();
-                console.log(data);
+                const data = await response.json();
                 this.data = data;
 
                 // sugar
                 setTimeout(() => {
-                    this.status = (this.status + 1) % statusModular;
-                    this.statusPropagation(this.status);    
+                    this.setState({
+                        status: (this.status + 1) % statusModular,
+                        data: this.data,
+                        index: this.index,
+                    });
                 }, 1000);
             } catch(e) {
                 console.log(e);
             }
         }
-        
-        this.textInput.setState(this.status);
-        this.decisionButton.setState(this.status);
-    }
-
-    setState() {
-
     }
 
     render() {

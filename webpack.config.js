@@ -30,7 +30,14 @@ module.exports = {
           "sass-loader"
         ],
         exclude: /node_modules/
-      }
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        loader: 'file-loader',
+        options: {
+          outputPath: 'assets',
+        },
+      },
     ]
   },
   devtool: 'source-map',

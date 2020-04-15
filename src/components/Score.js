@@ -1,5 +1,7 @@
 export default class Score {
-    constructor() {
+    $score = null;
 
+    constructor() {
+        
     }
 }

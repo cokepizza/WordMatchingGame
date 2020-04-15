@@ -1,7 +1,8 @@
 import './TextInput.scss';
 
 export default class TextInput {
-    $textInput = null;
+    $textInput= null;
+    children= [];
 
     constructor({ onSubmit }) {
         this.$textInput = document.createElement('input');
@@ -17,7 +18,19 @@ export default class TextInput {
         this.$textInput.addEventListener('keyup', onKeyUp);
     }
 
-    setState(status) {
+    setState(state) {
+        //  Check if there is a handler for the changed state 
+        Object.keys(state).forEach(key => {
+            if(this[`${key}_handler`]) {
+                this[`${key}_handler`](state[key]);
+            }
+        });
+
+        //  Spread the changed state to children
+        this.children.forEach(child => child.setState(state));
+    }
+
+    status_handler(status) {
         if(status === 0) {
             this.$textInput.classList.add('disabled');
         } else if(status === 2) {
