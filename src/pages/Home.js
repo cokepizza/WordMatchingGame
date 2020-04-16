@@ -13,7 +13,6 @@ const statusModular = 3;
 export default class Home {
     $home = null;
     status = 0;
-    timeLimit = null;
     data = [];
     index = 0;
     score = null;
@@ -33,13 +32,10 @@ export default class Home {
 
         this.timer = new Timer({
             setStateParent: this.setState,
-            endTheGame: () => {
-                // Navigation.navigate();
-            },
             missAWord: () => {
                 this.setState({
-                    score: --this.score,
-                    index: ++this.index,
+                    score: this.score - 1,
+                    index: this.index + 1,
                 })
             }
         });
@@ -56,9 +52,15 @@ export default class Home {
         this.textInput = new TextInput({
             onSubmit: text => {
                 if(this.data[this.index].text === text) {
+                    const prevIndex = this.index;
                     this.setState({
-                        index: ++this.index,
+                        index: this.index + 1,
+                        solved: this.solved + 1,
+                        timeSpent: this.timeSpent += (this.data[prevIndex].second - this.time),
                     })
+                    if(this.data.length === this.index) {
+                        this.navigateResult();
+                    }
                 }
             }
         });
@@ -113,6 +115,9 @@ export default class Home {
             this.time = null;
             this.score = null;
 
+            this.solved = 0;
+            this.timeSpent = 0;
+
             this.setState({
                 data: this.data,
                 index: this.index,
@@ -139,12 +144,29 @@ export default class Home {
         }
     }
 
+    index_handler(index) {
+        this.index = index;
+    }
+
     score_handler(score) {
         this.score = score;
     }
 
     time_handler(time) {
         this.time = time;
+    }
+
+    solved_handler(solved) {
+        this.solved = solved;
+    }
+
+    timeSpent_handler(timeSpent) {
+        this.timeSpent = timeSpent;
+    }
+
+    navigateResult() {
+        alert(this.solved);
+        alert(this.timeSpent);
     }
 
     render() {

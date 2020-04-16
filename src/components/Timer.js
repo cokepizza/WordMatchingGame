@@ -71,9 +71,8 @@ export default class Timer {
             if(this.time === null) {
 
             } else if(this.time > 0) {
-                --this.time;
                 this.setStateParent({
-                    time: this.time,
+                    time: this.time - 1,
                 });
                 this.timeReducer();
             } else {

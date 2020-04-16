@@ -1,9 +1,11 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: ['@babel/polyfill', './src/index.js'],
   output: {
-    filename: 'bundle.js',
+    filename: 'js/bundle.js',
     path: path.resolve(__dirname, 'public')
   },
   module: {
@@ -25,9 +27,9 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader"
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
         ],
         exclude: /node_modules/
       },
@@ -38,8 +40,17 @@ module.exports = {
           outputPath: 'assets',
         },
       },
-    ]
+    ],
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'css/style.css'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Word Matching Game',
+      filename: './index.html',
+     })
+  ],
   devtool: 'source-map',
   mode: 'development',
   devServer: {
