@@ -12,7 +12,7 @@ export default class ScoreBox {
         this.setStateParent = setStateParent;
     }
 
-    setState(state) {
+    setState = state => {
         //  Check if there is a handler for the changed state 
         Object.keys(state).forEach(key => {
             if(this[`${key}_handler`]) {
@@ -38,10 +38,10 @@ export default class ScoreBox {
 
     score_handler(score) {
         this.score = score;
-        if(score) {
-            this.$scoreBox.innerText = this.score + '점';
-        } else {
+        if(this.score === null) {
             this.$scoreBox.innerText = '';
+        } else {
+            this.$scoreBox.innerText = this.score + '점';
         }
     }
 

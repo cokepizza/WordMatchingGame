@@ -1,3 +1,4 @@
+
 export default class Navigation {
     constructor({ $root, router }) {
         // router.forEach(route => {

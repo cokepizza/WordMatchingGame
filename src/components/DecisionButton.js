@@ -28,7 +28,7 @@ export default class DecisionButton {
         return this.$decisionButton;
     }
 
-    setState(state) {
+    setState = state => {
         //  Check if there is a handler for the changed state 
         Object.keys(state).forEach(key => {
             if(this[`${key}_handler`]) {

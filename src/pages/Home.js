@@ -3,6 +3,7 @@ import ScoreBox from '../components/ScoreBox';
 import BillBoard from '../components/BillBoard';
 import TextInput from '../components/TextInput';
 import DecisionButton from '../components/DecisionButton';
+import Navigation from '../Navigation';
 
 import './Home.scss';
 
@@ -32,6 +33,15 @@ export default class Home {
 
         this.timer = new Timer({
             setStateParent: this.setState,
+            endTheGame: () => {
+                // Navigation.navigate();
+            },
+            missAWord: () => {
+                this.setState({
+                    score: --this.score,
+                    index: ++this.index,
+                })
+            }
         });
         this.$timer = this.timer.render();
 
@@ -40,9 +50,7 @@ export default class Home {
         });
         this.$scoreBox = this.scoreBox.render();
 
-        this.billBoard = new BillBoard({
-
-        });
+        this.billBoard = new BillBoard();
         this.$billBoard = this.billBoard.render();
 
         this.textInput = new TextInput({
@@ -85,7 +93,7 @@ export default class Home {
         });
     }
 
-    setState(state) {
+    setState = state => {
         //  Check if there is a handler for the changed state 
         Object.keys(state).forEach(key => {
             if(this[`${key}_handler`]) {
@@ -120,6 +128,7 @@ export default class Home {
     }
 
     score_handler(score) {
+        console.log('main : ' + score);
         this.score = score;
     }
 

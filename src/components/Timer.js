@@ -6,13 +6,15 @@ export default class Timer {
     children = [];
     setTimeRef = null;
 
-    constructor({ setStateParent }) {
+    constructor({ setStateParent, missAWord, endTheGame }) {
         this.$timer = document.createElement('div');
         this.$timer.className = 'timer';
         this.setStateParent = setStateParent;
+        this.missAWord = missAWord;
+        this.endTheGame = endTheGame;
     }
 
-    setState(state) {
+    setState = state => {
         //  Check if there is a handler for the changed state 
         Object.keys(state).forEach(key => {
             if(this[`${key}_handler`]) {
@@ -29,7 +31,7 @@ export default class Timer {
             this.time = null;
             this.setStateParent({
                 time: this.time,
-            })
+            });
             clearTimeout(this.setTimeRef);
         }
     }
@@ -40,20 +42,26 @@ export default class Timer {
 
     index_handler(index) {
         this.time = this.data[index].second;
-        if(this.time) {
-            
+        const length = this.data.length;
+        if(length > index) {
+            this.setStateParent({
+                time: this.time,
+            });
+            this.timeReducer();
+        } else {
+            this.time = null;
+            this.setStateParent({
+                time: this.time,
+            })
         }
-        this.setStateParent({
-            time: this.time,
-        });
-        this.timeReducer();
     }
 
     time_handler(time) {
-        if(time) {
-            this.$timer.innerText = '남은 시간 : ' + time + '초';
-        } else {
+        this.time = time;
+        if(this.time === null) {
             this.$timer.innerText = '';
+        } else {
+            this.$timer.innerText = '남은 시간 : ' + this.time + '초';
         }
     }
 
@@ -62,7 +70,7 @@ export default class Timer {
         this.setTimeRef = setTimeout(() => {
             --this.time;
             if(this.time < 0) {
-                console.log('time 0');
+                this.missAWord();
             } else {
                 this.setStateParent({
                     time: this.time,
