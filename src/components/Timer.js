@@ -40,6 +40,9 @@ export default class Timer {
 
     index_handler(index) {
         this.time = this.data[index].second;
+        if(this.time) {
+            
+        }
         this.setStateParent({
             time: this.time,
         });
