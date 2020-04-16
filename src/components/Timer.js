@@ -38,7 +38,7 @@ export default class Timer {
 
     index_handler(index) {
         this.time = this.data[index].second;
-        this.$timer.innerText = this.time;
+        this.$timer.innerText = '남은 시간 : ' + this.time + '초';
         this.timeReducer();
     }
 
@@ -49,7 +49,7 @@ export default class Timer {
             if(this.time < 0) {
 
             } else {
-                this.$timer.innerText = this.time;
+                this.$timer.innerText = '남은 시간 : ' + this.time + '초';
                 this.timeReducer();
             }
         }, 1000);

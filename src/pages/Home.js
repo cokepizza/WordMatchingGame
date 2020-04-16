@@ -1,4 +1,5 @@
 import Timer from '../components/Timer';
+import ScoreBox from '../components/ScoreBox';
 import BillBoard from '../components/BillBoard';
 import TextInput from '../components/TextInput';
 import DecisionButton from '../components/DecisionButton';
@@ -6,15 +7,15 @@ import DecisionButton from '../components/DecisionButton';
 import './Home.scss';
 
 const dataURL = 'https://my-json-server.typicode.com/kakaopay-fe/resources/words';
-const defaultTime = 10;
 const statusModular = 3;
 
 export default class Home {
     $home = null;
     status = 0;
-    timeLimit = defaultTime;
+    timeLimit = null;
     data = [];
     index = 0;
+    score = null;
     children = [];
 
     constructor() {
@@ -34,6 +35,11 @@ export default class Home {
         });
         this.$timer = this.timer.render();
 
+        this.scoreBox = new  ScoreBox({
+            setStateParent: this.setState,
+        });
+        this.$scoreBox = this.scoreBox.render();
+
         this.billBoard = new BillBoard({
 
         });
@@ -41,7 +47,11 @@ export default class Home {
 
         this.textInput = new TextInput({
             onSubmit: text => {
-                this.setState(text);
+                if(this.data[this.index].text === text) {
+                    this.setState({
+                        index: ++this.index,
+                    })
+                }
             }
         });
         this.$textInput = this.textInput.render();
@@ -57,6 +67,7 @@ export default class Home {
         this.$decisionButton = this.decisionButton.render();
 
         this.$noticeRow.appendChild(this.$timer);
+        this.$noticeRow.appendChild(this.$scoreBox);
         this.$bodyFrame.appendChild(this.$noticeRow);
         this.$bodyFrame.appendChild(this.$billBoard);
         this.$bodyFrame.appendChild(this.$textInput);
@@ -66,11 +77,11 @@ export default class Home {
         this.$home.appendChild(this.$bodyFrame);
         this.$home.appendChild(this.$footerFrame);
 
-        this.children = [ this.timer, this.billBoard, this.textInput, this.decisionButton ];
+        this.children = [ this.timer, this.scoreBox, this.billBoard, this.textInput, this.decisionButton ];
 
         //  initialize
         this.setState({
-            status: 0,
+            status: this.status,
         });
     }
 
@@ -106,6 +117,10 @@ export default class Home {
                 console.log(e);
             }
         }
+    }
+
+    score_handler(score) {
+        this.score = score;
     }
 
     render() {

@@ -1,0 +1,56 @@
+import './ScoreBox.scss';
+
+const defaultScore = 10;
+export default class ScoreBox {
+    $score = null;
+    score = null;
+    children = [];
+
+    constructor({ setStateParent }) {
+        this.$scoreBox = document.createElement('div');
+        this.$scoreBox.className = 'scoreBox';
+        this.setStateParent = setStateParent;
+    }
+
+    setState(state) {
+        //  Check if there is a handler for the changed state 
+        Object.keys(state).forEach(key => {
+            if(this[`${key}_handler`]) {
+                this[`${key}_handler`](state[key]);
+            }
+        });
+
+        //  Spread the changed state to children
+        this.children.forEach(child => child.setState(state));
+    }
+
+    status_handler(status) {
+        if(status === 0) {
+            // this.$scoreBox.innerText = '';
+            this.setStateParent({
+                score: null
+            });
+        } else if(status === 2) {
+            this.setStateParent({
+                score: defaultScore
+            });
+            // this.score = defaultScore;
+            // this.$scoreBox.innerText = this.score + '점';
+            // this.onChangeScore(this.score);
+        }
+    }
+
+    score_handler(score) {
+        this.score = score;
+        if(score) {
+            this.$scoreBox.innerText = this.score + '점';
+        } else {
+            this.$scoreBox.innerText = '';
+        }
+        
+    }
+
+    render() {
+        return this.$scoreBox;
+    }
+}
