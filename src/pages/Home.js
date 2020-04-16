@@ -107,7 +107,19 @@ export default class Home {
 
     async status_handler(status) {
         this.status = status;
-        if(this.status === 1) {
+        if(this.status === 0) {
+            this.data = [];
+            this.index = 0;
+            this.time = null;
+            this.score = null;
+
+            this.setState({
+                data: this.data,
+                index: this.index,
+                time: this.time,
+                score: this.score,
+            });
+        } else if (this.status === 1) {
             try {
                 const response = await fetch(dataURL);
                 const data = await response.json();
@@ -128,7 +140,6 @@ export default class Home {
     }
 
     score_handler(score) {
-        console.log('main : ' + score);
         this.score = score;
     }
 

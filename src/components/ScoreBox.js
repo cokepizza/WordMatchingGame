@@ -31,7 +31,7 @@ export default class ScoreBox {
             });
         } else if(status === 2) {
             this.setStateParent({
-                score: defaultScore
+                score: defaultScore,
             });
         }
     }

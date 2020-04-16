@@ -35,8 +35,14 @@ export default class BillBoard {
     }
 
     index_handler(index) {
-        const { text } = this.data[index];
-        this.$billBoard.innerText = text;
+        const length = this.data.length;
+        if(length > index) {
+            const { text } = this.data[index];
+            this.$billBoard.innerText = text;
+        } else {
+            this.$billBoard.innerText = '';
+        }
+        
     }
 
     render() {
