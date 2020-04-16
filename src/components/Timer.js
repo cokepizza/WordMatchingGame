@@ -6,10 +6,10 @@ export default class Timer {
     children = [];
     setTimeRef = null;
 
-    constructor({}) {
+    constructor({ setStateParent }) {
         this.$timer = document.createElement('div');
         this.$timer.className = 'timer';
-
+        this.setStateParent = setStateParent;
     }
 
     setState(state) {
@@ -27,7 +27,9 @@ export default class Timer {
     status_handler(status) {
         if(status === 0) {
             this.time = null;
-            this.$timer.innerText = '';
+            this.setStateParent({
+                time: this.time,
+            })
             clearTimeout(this.setTimeRef);
         }
     }
@@ -38,8 +40,18 @@ export default class Timer {
 
     index_handler(index) {
         this.time = this.data[index].second;
-        this.$timer.innerText = '남은 시간 : ' + this.time + '초';
+        this.setStateParent({
+            time: this.time,
+        });
         this.timeReducer();
+    }
+
+    time_handler(time) {
+        if(time) {
+            this.$timer.innerText = '남은 시간 : ' + time + '초';
+        } else {
+            this.$timer.innerText = '';
+        }
     }
 
     timeReducer() {
@@ -47,9 +59,11 @@ export default class Timer {
         this.setTimeRef = setTimeout(() => {
             --this.time;
             if(this.time < 0) {
-
+                console.log('time 0');
             } else {
-                this.$timer.innerText = '남은 시간 : ' + this.time + '초';
+                this.setStateParent({
+                    time: this.time,
+                });
                 this.timeReducer();
             }
         }, 1000);

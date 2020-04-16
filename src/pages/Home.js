@@ -31,7 +31,7 @@ export default class Home {
         this.$noticeRow.className = 'noticeRow';
 
         this.timer = new Timer({
-
+            setStateParent: this.setState,
         });
         this.$timer = this.timer.render();
 
@@ -121,6 +121,10 @@ export default class Home {
 
     score_handler(score) {
         this.score = score;
+    }
+
+    time_handler(time) {
+        this.time = time;
     }
 
     render() {

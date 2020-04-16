@@ -26,7 +26,6 @@ export default class ScoreBox {
 
     status_handler(status) {
         if(status === 0) {
-            // this.$scoreBox.innerText = '';
             this.setStateParent({
                 score: null
             });
@@ -34,9 +33,6 @@ export default class ScoreBox {
             this.setStateParent({
                 score: defaultScore
             });
-            // this.score = defaultScore;
-            // this.$scoreBox.innerText = this.score + '점';
-            // this.onChangeScore(this.score);
         }
     }
 
@@ -47,7 +43,6 @@ export default class ScoreBox {
         } else {
             this.$scoreBox.innerText = '';
         }
-        
     }
 
     render() {
