@@ -18,7 +18,8 @@ export default class Home {
     score = null;
     children = [];
 
-    constructor() {
+    constructor({ navigation }) {
+        this.navigation = navigation;
         this.$home = document.createDocumentFragment();
 
         this.$headerFrame = document.createElement('div');
@@ -165,8 +166,7 @@ export default class Home {
     }
 
     navigateResult() {
-        alert(this.solved);
-        alert(this.timeSpent);
+        this.navigation.navigate('/result');
     }
 
     render() {

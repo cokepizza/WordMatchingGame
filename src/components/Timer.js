@@ -79,11 +79,6 @@ export default class Timer {
                 console.log('missAword');
                 this.missAWord();
             }
-            // if(this.time < 0) {
-                
-            // } else {
-                
-            // }
         }, 1000);
     }
 
