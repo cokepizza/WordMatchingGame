@@ -1,3 +1,4 @@
+import './index.scss';
 import Navigation from './Navigation';
 
 const $root = document.querySelector('body');

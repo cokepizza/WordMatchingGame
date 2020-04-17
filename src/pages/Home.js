@@ -3,7 +3,6 @@ import ScoreBox from '../components/ScoreBox';
 import BillBoard from '../components/BillBoard';
 import TextInput from '../components/TextInput';
 import DecisionButton from '../components/DecisionButton';
-import Navigation from '../Navigation';
 
 import './Home.scss';
 
@@ -23,13 +22,13 @@ export default class Home {
         this.$home = document.createDocumentFragment();
 
         this.$headerFrame = document.createElement('div');
-        this.$headerFrame.className = 'headerFrame';
+        this.$headerFrame.className = 'Home_headerFrame';
         this.$bodyFrame = document.createElement('div');
-        this.$bodyFrame.className = 'bodyFrame';
+        this.$bodyFrame.className = 'Home_bodyFrame';
         this.$footerFrame = document.createElement('div');
-        this.$footerFrame.className = 'footerFrame';
+        this.$footerFrame.className = 'Home_footerFrame';
         this.$noticeRow = document.createElement('div');
-        this.$noticeRow.className = 'noticeRow';
+        this.$noticeRow.className = 'Home_noticeRow';
 
         this.timer = new Timer({
             setStateParent: this.setState,
@@ -166,7 +165,10 @@ export default class Home {
     }
 
     navigateResult() {
-        this.navigation.navigate('/result');
+        this.navigation.navigate('/result', {
+            score: this.score,
+            timeSpentAverage: this.timeSpent / this.solved,
+        });
     }
 
     render() {
