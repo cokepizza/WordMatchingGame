@@ -167,7 +167,7 @@ export default class Home {
     navigateResult() {
         this.navigation.navigate('/result', {
             score: this.score,
-            timeSpentAverage: this.timeSpent / this.solved,
+            timeSpentAverage: parseInt(this.timeSpent / this.solved),
         });
     }
 

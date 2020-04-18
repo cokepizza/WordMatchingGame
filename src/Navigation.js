@@ -9,14 +9,15 @@ const routerInform = {
 export default class Navigation {
     constructor({ $root, defaultUrl }) {
         window.addEventListener('popstate', e => {
-            console.log('[popstate]', e.state);
+            // console.log('[popstate]', e.state);
+            // alert('back buttn');
         });
 
         console.dir($root);
         this.$root = $root;
 
-        // this.navigate(defaultUrl);
-        this.navigate('/result');
+        this.navigate(defaultUrl);
+        // this.navigate('/result');
     }
 
     navigate(url, props) {
@@ -37,7 +38,7 @@ export default class Navigation {
     }
 
     goBack() {
-        alert('goBack');
+        history.back();
     }
 
 }
