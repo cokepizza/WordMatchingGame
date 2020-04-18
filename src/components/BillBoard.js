@@ -31,7 +31,6 @@ export default class BillBoard {
 
     data_handler(data) {
         this.data = data;
-        console.log(this.data);
     }
 
     index_handler(index) {

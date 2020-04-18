@@ -2,8 +2,9 @@ module.exports = {
     moduleFileExtensions: ["js", "json", "ts"],
     transform: {
         '^.+\\.(js)?$': 'babel-jest',
+        "^.+\\.svg$": "<rootDir>/svgTransform.js"
     },
-    testEnvironment: 'node',
+    testEnvironment: 'jsdom',
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/$1',
         "\\.(css|less|scss|sass)$": "identity-obj-proxy",

@@ -13,7 +13,7 @@ export default class Navigation {
             // alert('back buttn');
         });
 
-        console.dir($root);
+        // console.dir($root);
         this.$root = $root;
 
         this.navigate(defaultUrl);
@@ -23,8 +23,8 @@ export default class Navigation {
     navigate(url, props) {
         this.$root.innerHTML = '';
         history.pushState({path : url}, null, url);
-        console.log(history);
-        console.log('pushState')
+        // console.log(history);
+        // console.log('pushState')
         if(routerInform[url]) {
             this.$root.appendChild(
                 new routerInform[url]({
