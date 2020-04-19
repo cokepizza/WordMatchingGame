@@ -1,14 +1,16 @@
+import StatePropagation from '../components/StatePropagtion';
 import './BillBoard.scss';
 
-export default class BillBoard {
-    $billBoardFrame = null;
+export default class BillBoard extends StatePropagation {
+    $self = null;
     $billBoard = null;
     children = [];
     data = [];
     
-    constructor() {
-        this.$billBoardFrame = document.createElement('div');
-        this.$billBoardFrame.className = 'billBoardFrame';
+    constructor(props) {
+        super(props);
+        this.$self = document.createElement('div');
+        this.$self.className = 'billBoardFrame';
 
         this.$billBoard = document.createElement('div');
         this.$billBoard.className = 'billBoard';
@@ -16,21 +18,8 @@ export default class BillBoard {
         this.$underline = document.createElement('div');
         this.$underline.className = 'underline';
 
-        this.$billBoardFrame.appendChild(this.$billBoard);
-        this.$billBoardFrame.appendChild(this.$underline);
-    }
-    
-    setState = async state => {
-        //  Spread the changed state to children
-        this.children.forEach(child => child.setState(state));
-
-        //  Check if there is a handler for the changed state 
-        const keys = Object.keys(state);
-        for(const key of keys) {
-            if(this[`${key}_handler`]) {
-                await this[`${key}_handler`](state[key]);
-            }
-        };
+        this.$self.appendChild(this.$billBoard);
+        this.$self.appendChild(this.$underline);
     }
 
     status_handler(status) {
@@ -71,10 +60,5 @@ export default class BillBoard {
             this.nextText = '';
             this.$billBoard.innerText = this.nextText;
         }
-        
-    }
-
-    render() {
-        return this.$billBoardFrame;
     }
 }

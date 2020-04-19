@@ -1,3 +1,4 @@
+import StatePropagation from '../components/StatePropagtion';
 import Timer from '../components/Timer';
 import ScoreBox from '../components/ScoreBox';
 import BillBoard from '../components/BillBoard';
@@ -9,17 +10,19 @@ import './Home.scss';
 const dataURL = 'https://my-json-server.typicode.com/kakaopay-fe/resources/words';
 const statusModular = 3;
 
-export default class Home {
-    $home = null;
+export default class Home extends StatePropagation {
+    $self = null;
     status = 0;
     data = [];
     index = 0;
     score = null;
     children = [];
 
-    constructor({ navigation }) {
+    constructor(props) {
+        super(props);
+        const { navigation } = props;
         this.navigation = navigation;
-        this.$home = document.createDocumentFragment();
+        this.$self = document.createDocumentFragment();
 
         this.$headerFrame = document.createElement('div');
         this.$headerFrame.className = 'Home_headerFrame';
@@ -30,8 +33,6 @@ export default class Home {
         this.$noticeRow = document.createElement('div');
         this.$noticeRow.className = 'Home_noticeRow';
 
-        
-        
         this.$githubBlock = document.createElement('a');
         const text = document.createTextNode('https://github.com/cokepizza');
         this.$githubBlock.appendChild(text);
@@ -101,9 +102,9 @@ export default class Home {
         this.$bodyFrame.appendChild(this.$textInput);
         this.$bodyFrame.appendChild(this.$decisionButton);
 
-        this.$home.appendChild(this.$headerFrame);
-        this.$home.appendChild(this.$bodyFrame);
-        this.$home.appendChild(this.$footerFrame);
+        this.$self.appendChild(this.$headerFrame);
+        this.$self.appendChild(this.$bodyFrame);
+        this.$self.appendChild(this.$footerFrame);
 
         this.children = [ this.timer, this.scoreBox, this.billBoard, this.textInput, this.decisionButton ];
 
@@ -111,19 +112,6 @@ export default class Home {
         this.setState({
             status: this.status,
         });
-    }
-
-    setState = async state => {
-        //  Spread the changed state to children
-        this.children.forEach(child => child.setState(state));
-
-        //  Check if there is a handler for the changed state 
-        const keys = Object.keys(state);
-        for(const key of keys) {
-            if(this[`${key}_handler`]) {
-                await this[`${key}_handler`](state[key]);
-            }
-        };
     }
 
     async status_handler(status) {
@@ -187,9 +175,5 @@ export default class Home {
             score: this.score,
             timeSpentAverage: parseInt(this.timeSpent / this.solved),
         });
-    }
-
-    render() {
-        return this.$home;
     }
 }

@@ -1,13 +1,16 @@
+import StatePropagation from '../components/StatePropagtion';
 import './TextInput.scss';
 
-export default class TextInput {
-    $textInput= null;
+export default class TextInput extends StatePropagation {
+    $self= null;
     children= [];
 
-    constructor({ onSubmit }) {
-        this.$textInput = document.createElement('input');
-        this.$textInput.className = 'textInput';
-        this.$textInput.setAttribute('spellcheck','false')
+    constructor(props) {
+        super(props);
+        const { onSubmit } = props;
+        this.$self = document.createElement('input');
+        this.$self.className = 'textInput';
+        this.$self.setAttribute('spellcheck','false')
         this.onSubmit = onSubmit;
         
         const onKeyUp = e => {
@@ -17,34 +20,17 @@ export default class TextInput {
             }
         }
 
-        this.$textInput.addEventListener('keyup', onKeyUp);
-    }
-
-    setState = async state => {
-        //  Spread the changed state to children
-        this.children.forEach(child => child.setState(state));
-
-        //  Check if there is a handler for the changed state 
-        const keys = Object.keys(state);
-        for(const key of keys) {
-            if(this[`${key}_handler`]) {
-                await this[`${key}_handler`](state[key]);
-            }
-        };
+        this.$self.addEventListener('keyup', onKeyUp);
     }
 
     status_handler(status) {
         this.status = status;
         if(status === 0) {
-            this.$textInput.classList.add('disabled');
-            this.$textInput.value = '';
+            this.$self.classList.add('disabled');
+            this.$self.value = '';
         } else if(status === 2) {
-            this.$textInput.classList.remove('disabled');
-            this.$textInput.focus();
+            this.$self.classList.remove('disabled');
+            this.$self.focus();
         }
-    }
-
-    render() {
-        return this.$textInput;
     }
 }

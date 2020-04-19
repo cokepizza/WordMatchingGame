@@ -1,29 +1,19 @@
+import StatePropagation from '../components/StatePropagtion';
 import './Timer.scss';
 
-export default class Timer {
-    $timer = null;
+export default class Timer extends StatePropagation {
+    $self = null;
     time = null;
     children = [];
     setTimeRef = null;
 
-    constructor({ setStateParent, missAWord }) {
-        this.$timer = document.createElement('div');
-        this.$timer.className = 'timer';
+    constructor(props) {
+        super(props);
+        const { setStateParent, missAWord } = props;
+        this.$self = document.createElement('div');
+        this.$self.className = 'timer';
         this.setStateParent = setStateParent;
         this.missAWord = missAWord;
-    }
-
-    setState = async state => {
-        //  Spread the changed state to children
-        this.children.forEach(child => child.setState(state));
-
-        //  Check if there is a handler for the changed state 
-        const keys = Object.keys(state);
-        for(const key of keys) {
-            if(this[`${key}_handler`]) {
-                await this[`${key}_handler`](state[key]);
-            }
-        };
     }
 
     status_handler(status) {
@@ -61,9 +51,9 @@ export default class Timer {
     time_handler(time) {
         this.time = time;
         if(this.time === null) {
-            this.$timer.innerText = '';
+            this.$self.innerText = '';
         } else {
-            this.$timer.innerText = '남은 시간 : ' + this.time + '초';
+            this.$self.innerText = '남은 시간 : ' + this.time + '초';
         }
     }
 
@@ -71,7 +61,7 @@ export default class Timer {
         clearTimeout(this.setTimeRef);
         this.setTimeRef = setTimeout(() => {
             if(this.time === null) {
-                this.$timer.innerText = '';
+                this.$self.innerText = '';
             } else if(this.time > 0) {
                 this.setStateParent({
                     time: this.time - 1,
@@ -81,9 +71,5 @@ export default class Timer {
                 this.missAWord();
             }
         }, 1000);
-    }
-
-    render() {
-        return this.$timer;
     }
 }

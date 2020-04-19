@@ -1,13 +1,16 @@
+import StatePropagation from '../components/StatePropagtion';
 import './DecisionButton.scss';
 import spinner from '../assets/spinner.svg';
 
-export default class DecisionButton {
-    $decisionButton = null;
+export default class DecisionButton extends StatePropagation{
+    $self = null;
     children = [];
     
-    constructor({ mention, onClick }) {
-        this.$decisionButton = document.createElement('button');
-        this.$decisionButton.className = 'decisionButton';
+    constructor(props) {
+        super(props);
+        const { mention, onClick } = props;
+        this.$self = document.createElement('button');
+        this.$self.className = 'decisionButton';
         
         this.mention = mention;
         this.onClick = onClick;
@@ -19,27 +22,10 @@ export default class DecisionButton {
         this.$text = document.createElement('p');
         this.$text.className = 'text';
 
-        this.$decisionButton.appendChild(this.$image);
-        this.$decisionButton.appendChild(this.$text);
+        this.$self.appendChild(this.$image);
+        this.$self.appendChild(this.$text);
 
-        this.$decisionButton.addEventListener('click', onClick);
-    }
-
-    render() {
-        return this.$decisionButton;
-    }
-
-    setState = async state => {
-        //  Spread the changed state to children
-        this.children.forEach(child => child.setState(state));
-
-        //  Check if there is a handler for the changed state 
-        const keys = Object.keys(state);
-        for(const key of keys) {
-            if(this[`${key}_handler`]) {
-                await this[`${key}_handler`](state[key]);
-            }
-        };
+        this.$self.addEventListener('click', onClick);
     }
 
     status_handler(status) {
