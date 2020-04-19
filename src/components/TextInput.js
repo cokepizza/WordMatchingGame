@@ -33,6 +33,7 @@ export default class TextInput {
     }
 
     status_handler(status) {
+        this.status = status;
         if(status === 0) {
             this.$textInput.classList.add('disabled');
             this.$textInput.value = '';
