@@ -21,20 +21,35 @@ const testCase = [
     }
 ]
 
-beforeEach(() => {
+beforeAll(() => {
     billBoard = new BillBoard();
-    billBoard.data_handler(testCase);
-    expect(billBoard.data).toBe(testCase);
 });
 
-test('hi', () => {
-    
-    expect(true).toBe(true);
-})
+describe("Initialization phase test", () => {
+    beforeEach(() => {
+        billBoard.status_handler(0);
+    });
 
-// describe('BillBoard Test', () => {
-//     it('hi', () => {
-//         console.log(billBoard);
-//         expect(true).toBe(true);
-//     })
-// });
+    test("data initialize test", () => {
+        billBoard.data_handler([]);
+    });
+});
+
+describe("Game phase test", () => {
+    beforeEach(() => {
+        billBoard.data_handler(testCase);
+    });
+
+    test("data insertion test", () => {
+        expect(billBoard.data).toBe(testCase);
+    });
+
+    test("index insertion test => billBoard.nextText change", () => {
+        let index = 0;
+        for(const data of billBoard.data) {
+            billBoard.index_handler(index);
+            expect(billBoard.nextText).toBe(data.text);
+            ++index;
+        }
+    })
+});

@@ -9,22 +9,25 @@ const routerInform = {
 export default class Navigation {
     constructor({ $root, defaultUrl }) {
         window.addEventListener('popstate', e => {
-            // console.log('[popstate]', e.state);
-            // alert('back buttn');
+            if(e.state) {
+                this.route(e.state.path);
+            } else {
+                this.route('/');
+            }
         });
 
-        // console.dir($root);
         this.$root = $root;
-
-        this.navigate(defaultUrl);
-        // this.navigate('/result');
+        this.route(defaultUrl);
+        // this.route('/result');
+    }
+    
+    navigate(url, props) {
+        history.pushState({path : url}, null, url);
+        this.route(url, props);
     }
 
-    navigate(url, props) {
+    route(url, props) {
         this.$root.innerHTML = '';
-        history.pushState({path : url}, null, url);
-        // console.log(history);
-        // console.log('pushState')
         if(routerInform[url]) {
             this.$root.appendChild(
                 new routerInform[url]({
@@ -38,7 +41,15 @@ export default class Navigation {
     }
 
     goBack() {
-        history.back();
+        history.go(-1);
+        // history.replaceState(null, null, '/');
+        // const length = history.length -1;
+        // history.go(-length);
+        // setTimeout(() => {
+        //     console.log('navigate');
+        //     navigate('/');
+        //     // history.replaceState({}, null, '/');
+        // }, 3000);
     }
 
 }

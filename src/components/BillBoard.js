@@ -10,16 +10,17 @@ export default class BillBoard {
         this.$billBoard.className = 'billBoard';
     }
     
-    setState = state => {
-        //  Check if there is a handler for the changed state 
-        Object.keys(state).forEach(key => {
-            if(this[`${key}_handler`]) {
-                this[`${key}_handler`](state[key]);
-            }
-        });
-
+    setState = async state => {
         //  Spread the changed state to children
         this.children.forEach(child => child.setState(state));
+
+        //  Check if there is a handler for the changed state 
+        const keys = Object.keys(state);
+        for(const key of keys) {
+            if(this[`${key}_handler`]) {
+                await this[`${key}_handler`](state[key]);
+            }
+        };
     }
 
     status_handler(status) {
@@ -36,10 +37,12 @@ export default class BillBoard {
     index_handler(index) {
         const length = this.data.length;
         if(length > index) {
-            const { text } = this.data[index];
-            this.$billBoard.innerText = text;
+            const { text: nextText } = this.data[index];
+            this.nextText = nextText;
+            this.$billBoard.innerText = this.nextText;
         } else {
-            this.$billBoard.innerText = '';
+            this.nextText = '';
+            this.$billBoard.innerText = this.nextText;
         }
         
     }

@@ -19,16 +19,17 @@ export default class TextInput {
         this.$textInput.addEventListener('keyup', onKeyUp);
     }
 
-    setState = state => {
-        //  Check if there is a handler for the changed state 
-        Object.keys(state).forEach(key => {
-            if(this[`${key}_handler`]) {
-                this[`${key}_handler`](state[key]);
-            }
-        });
-
+    setState = async state => {
         //  Spread the changed state to children
         this.children.forEach(child => child.setState(state));
+
+        //  Check if there is a handler for the changed state 
+        const keys = Object.keys(state);
+        for(const key of keys) {
+            if(this[`${key}_handler`]) {
+                await this[`${key}_handler`](state[key]);
+            }
+        };
     }
 
     status_handler(status) {

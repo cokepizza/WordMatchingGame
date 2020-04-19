@@ -1,9 +1,9 @@
+//  success scenario
 import 'isomorphic-fetch';
 import Home from '../../src/pages/Home';
 import Navigation from '../../src/Navigation';
 
 let home;
-let billBoard;
 let decisionButton;
 let textInput;
 let navigation;
@@ -13,42 +13,37 @@ beforeAll(() => {
     const defaultUrl = '/';
     navigation = new Navigation({ $root, defaultUrl });
     home = new Home({navigation});
-    ({ decisionButton, billBoard, textInput } = home);
+    ({ decisionButton, textInput } = home);
 })
 
-//  check consistency of varialbe in Home
-describe("Initialization phase test (status = 0)", () => {
-    test("", () => {
+describe("Initialization phase test", () => {
+    test("check status whether 0 or not", () => {
         expect(home.status).toBe(0);
     });
 });
 
-describe("Loading phase test (status = 1)", () => {
+describe("Loading phase test", () => {
     beforeAll(async () => {
         await decisionButton.onClick();
     })
 
-    test('This is a sample', () => {
-        expect(true).toBe(true);
-    });
-
-    test("", () => {
+    test("check status whether 1 or not", () => {
         expect(home.status).toBe(1);
     });
 });
 
-describe("Game phase test (status = 2)", () => {
+describe("Game phase test", () => {
     beforeAll(async() => {
         await new Promise((resolve, reject) => setTimeout(() => {
             resolve();
         }, 300));
     });
 
-    test("", () => {
+    test("check status whether 2 or not", () => {
         expect(home.status).toBe(2);
     });
 
-    test("", async () => {
+    test("check consistency of varialbe in Home", async () => {
         const datas = home.data;
         let index = 0;
         for(const data of datas) {
@@ -66,12 +61,3 @@ describe("Game phase test (status = 2)", () => {
         }
     });
 });
-
-// test("", async () => {
-//     const datas = home.data;
-//     let solved = 0;
-//     for(const data of datas) {
-//         await textInput.onSubmit(data.text);
-//         expect(home.solved).toBe(++solved);
-//     }
-// })

@@ -32,8 +32,8 @@ export default class Home {
 
         this.timer = new Timer({
             setStateParent: this.setState,
-            missAWord: () => {
-                this.setState({
+            missAWord: async () => {
+                await this.setState({
                     score: this.score - 1,
                     index: this.index + 1,
                 })
