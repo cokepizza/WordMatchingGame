@@ -43,12 +43,15 @@ export default class DecisionButton {
     }
 
     status_handler(status) {
+        this.status = status;
         if(status === 1) {
-            this.$text.innerHTML = '';
+            this.nextText = '';
+            this.$text.innerHTML = this.nextText;
             this.$image.classList.add('visible');
             this.$text.classList.remove('visible');
         } else {
-            this.$text.innerHTML = this.mention[status];
+            this.nextText = this.mention[status];
+            this.$text.innerHTML = this.nextText;
             this.$text.classList.add('visible');
             this.$image.classList.remove('visible');
         }
