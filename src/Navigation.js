@@ -18,7 +18,6 @@ export default class Navigation {
 
         this.$root = $root;
         this.route(defaultUrl);
-        // this.route('/result');
     }
     
     navigate(url, props) {
@@ -36,20 +35,12 @@ export default class Navigation {
                 }).render()
             );
         } else {
-            // $root.innerHTML = 404 Page
+            // 404 Page
         }
     }
 
     goBack() {
         history.go(-1);
-        // history.replaceState(null, null, '/');
-        // const length = history.length -1;
-        // history.go(-length);
-        // setTimeout(() => {
-        //     console.log('navigate');
-        //     navigate('/');
-        //     // history.replaceState({}, null, '/');
-        // }, 3000);
     }
 
 }

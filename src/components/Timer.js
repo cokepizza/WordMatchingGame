@@ -27,6 +27,7 @@ export default class Timer {
     }
 
     status_handler(status) {
+        this.status = status;
         if(status === 0) {
             this.time = null;
             this.setStateParent({
@@ -41,6 +42,7 @@ export default class Timer {
     }
 
     index_handler(index) {
+        this.index = index;
         const length = this.data.length;
         if(length > index) {
             this.time = this.data[index].second;
@@ -69,14 +71,13 @@ export default class Timer {
         clearTimeout(this.setTimeRef);
         this.setTimeRef = setTimeout(() => {
             if(this.time === null) {
-
+                this.$timer.innerText = '';
             } else if(this.time > 0) {
                 this.setStateParent({
                     time: this.time - 1,
                 });
                 this.timeReducer();
             } else {
-                console.log('missAword');
                 this.missAWord();
             }
         }, 1000);

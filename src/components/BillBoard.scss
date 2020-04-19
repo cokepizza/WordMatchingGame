@@ -1,3 +1,7 @@
+.billBoardFrame {
+    width: 400px;
+}
+
 .billBoard {
     display: flex;
     justify-content: center;
@@ -6,9 +10,16 @@
     font-style: italic;
     // font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin-top: 20px;
-    width: 400px;
+    width: 100%;
     height: 100px;
+    box-sizing: border-box;
     box-shadow:0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    user-select: none;
+}
 
+.underline {
+    transition: 1s;
+    width: 0%;
+    height: 2px;
 }

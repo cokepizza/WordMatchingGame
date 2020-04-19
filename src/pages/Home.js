@@ -30,6 +30,23 @@ export default class Home {
         this.$noticeRow = document.createElement('div');
         this.$noticeRow.className = 'Home_noticeRow';
 
+        
+        
+        this.$githubBlock = document.createElement('a');
+        const text = document.createTextNode('https://github.com/cokepizza');
+        this.$githubBlock.appendChild(text);
+        this.$githubBlock.href = 'https://github.com/cokepizza';
+        this.$githubBlock.style = 'color: rgba(0, 0, 0, 0.4); text-decoration: none;';
+
+        this.$informBlock = document.createElement('div');
+        this.$informBlock.innerHTML = 'Powered by cokepizza @ 2020 kakaopay';
+        
+        this.$footerPrint = document.createElement('div');
+        this.$footerPrint.className = 'Home_footerPrint';
+        this.$footerPrint.appendChild(this.$githubBlock);
+        this.$footerPrint.appendChild(this.$informBlock);
+        this.$footerFrame.appendChild(this.$footerPrint);
+
         this.timer = new Timer({
             setStateParent: this.setState,
             missAWord: async () => {

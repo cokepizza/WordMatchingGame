@@ -7,6 +7,7 @@ export default class TextInput {
     constructor({ onSubmit }) {
         this.$textInput = document.createElement('input');
         this.$textInput.className = 'textInput';
+        this.$textInput.setAttribute('spellcheck','false')
         this.onSubmit = onSubmit;
         
         const onKeyUp = e => {
