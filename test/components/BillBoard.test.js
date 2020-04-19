@@ -27,7 +27,9 @@ beforeAll(() => {
 
 describe("Initialization phase test", () => {
     beforeEach(() => {
-        billBoard.status_handler(0);
+        billBoard.setState({
+            status: 0,
+        });
     });
 
     test("data initialize test", () => {
@@ -38,6 +40,9 @@ describe("Initialization phase test", () => {
 describe("Game phase test", () => {
     beforeEach(() => {
         billBoard.data_handler(testCase);
+        billBoard.setState({
+            status: 2,
+        });
     });
 
     test("data insertion test", () => {

@@ -20,7 +20,7 @@ describe("Initialization phase test", () => {
     beforeEach(() => {
         decisionButton.setState({
             status: 0,
-        }); 
+        });
     });
 
     test("status initialize test", () => {

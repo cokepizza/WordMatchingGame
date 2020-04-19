@@ -26,6 +26,7 @@ export default class ScoreBox {
     }
 
     status_handler(status) {
+        this.status = status;
         if(status === 0) {
             this.setStateParent({
                 score: null
