@@ -50,14 +50,15 @@ export default class Home {
         this.$billBoard = this.billBoard.render();
 
         this.textInput = new TextInput({
-            onSubmit: text => {
+            onSubmit: async text => {
                 if(this.data[this.index].text === text) {
                     const prevIndex = this.index;
-                    this.setState({
+                    await this.setState({
                         index: this.index + 1,
                         solved: this.solved + 1,
                         timeSpent: this.timeSpent += (this.data[prevIndex].second - this.time),
-                    })
+                    });
+
                     if(this.data.length === this.index) {
                         this.navigateResult();
                     }
@@ -68,8 +69,8 @@ export default class Home {
 
         this.decisionButton = new DecisionButton({
             mention: ['시작', 'loading', '초기화'],
-            onClick: () => {
-                this.setState({
+            onClick: async () => {
+                await this.setState({
                     status: (this.status + 1) % statusModular,
                 });
             }
@@ -95,16 +96,17 @@ export default class Home {
         });
     }
 
-    setState = state => {
-        //  Check if there is a handler for the changed state 
-        Object.keys(state).forEach(key => {
-            if(this[`${key}_handler`]) {
-                this[`${key}_handler`](state[key]);
-            }
-        });
-
+    setState = async state => {
         //  Spread the changed state to children
         this.children.forEach(child => child.setState(state));
+
+        //  Check if there is a handler for the changed state 
+        const keys = Object.keys(state);
+        for(const key of keys) {
+            if(this[`${key}_handler`]) {
+                await this[`${key}_handler`](state[key]);
+            }
+        };
     }
 
     async status_handler(status) {
@@ -114,7 +116,6 @@ export default class Home {
             this.index = 0;
             this.time = null;
             this.score = null;
-
             this.solved = 0;
             this.timeSpent = 0;
 
@@ -137,7 +138,7 @@ export default class Home {
                         data: this.data,
                         index: this.index,
                     });
-                }, 1000);
+                }, 300);
             } catch(e) {
                 console.log(e);
             }

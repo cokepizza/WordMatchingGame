@@ -7,7 +7,8 @@ export default class TextInput {
     constructor({ onSubmit }) {
         this.$textInput = document.createElement('input');
         this.$textInput.className = 'textInput';
-
+        this.onSubmit = onSubmit;
+        
         const onKeyUp = e => {
             if(e.keyCode === 13) {
                 onSubmit(e.target.value);

@@ -10,6 +10,7 @@ export default class DecisionButton {
         this.$decisionButton.className = 'decisionButton';
         
         this.mention = mention;
+        this.onClick = onClick;
 
         this.$image = document.createElement('img');
         this.$image.className = 'image';

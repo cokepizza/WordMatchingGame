@@ -8,7 +8,7 @@
     "build": "npx webpack --config webpack.config.js --mode development",
     "prod": "npx webpack --config webpack.config.js --mode production",
     "start": "webpack-dev-server --open",
-    "jest": "jest"
+    "jest": "jest --runInBand --detectOpenHandles"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.2.0",
     "identity-obj-proxy": "^3.0.0",
+    "isomorphic-fetch": "^2.2.1",
     "jest": "^25.3.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
