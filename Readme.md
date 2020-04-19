@@ -35,8 +35,9 @@ Word Mathing Game. you can play here <https://chesssup.com>
   * Class based
     * Class 기반으로 개별 컴포넌트를 정의하고, dom과 메서드를 정의
     * 공통 class를 구현하여 setState, render 메서드를 공유
-  * SPA
+  * SPA & Routing
     * 접속 시 index.html 만을 렌더링하고 동적인 UI 변경 및 라우팅을 모두 js로 구현
+    * Pjax 방식의 네비게이션으로 '/', '/result' 페이지를 라우팅
   * Test
     * Initialization Phase, Loading Phase, Game Phase로 나누어 jest test 진행
     * 각 컴포넌트의 변수들에 단계마다 값이 적절하게 주어지는 지 여부를 체크

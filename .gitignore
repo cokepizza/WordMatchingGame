@@ -5,7 +5,7 @@
 /coverage
 
 # production
-/public
+# /public
 
 # misc
 npm-debug.log*
