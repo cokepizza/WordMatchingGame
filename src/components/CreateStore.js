@@ -15,6 +15,7 @@ export default class CreateStore {
 
     dispatch(action) {
         //  only rootReducer
+        const prevState = this.state;
         const payload = action.payload;
         if(action.type === 'score') {
             const { score } = payload;

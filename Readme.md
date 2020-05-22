@@ -1,6 +1,6 @@
 # WordMatchingGame
 
-Word Mathing Game. you can play here <https://chesssup.com>
+Word Mathing Game. you can play here <https://hixxx.me/wordMatchingGame>
 
 ----
 
