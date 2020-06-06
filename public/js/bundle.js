@@ -10761,6 +10761,89 @@ var BillBoard = /*#__PURE__*/function (_StatePropagation) {
 
 /***/ }),
 
+/***/ "./src/components/CreateStore.js":
+/*!***************************************!*\
+  !*** ./src/components/CreateStore.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CreateStore; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var CreateStore = /*#__PURE__*/function () {
+  function CreateStore() {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, CreateStore);
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "state", {});
+
+    this.listener = [];
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(CreateStore, [{
+    key: "subscribe",
+    value: function subscribe(l) {
+      var _this = this;
+
+      this.listener.push(l);
+      return function () {
+        var index = _this.listener.indexOf(l);
+
+        _this.listener.splice(index, 1);
+      };
+    }
+  }, {
+    key: "dispatch",
+    value: function dispatch(action) {
+      //  only rootReducer
+      var prevState = this.state;
+      var payload = action.payload;
+
+      if (action.type === 'score') {
+        var score = payload.score;
+        this.state = _objectSpread({}, this.state, {
+          score: score
+        });
+      }
+
+      this.notify();
+    }
+  }, {
+    key: "getState",
+    value: function getState() {
+      return this.state;
+    }
+  }, {
+    key: "notify",
+    value: function notify() {
+      this.listener.forEach(function (l) {
+        return l();
+      });
+    }
+  }]);
+
+  return CreateStore;
+}();
+
+
+;
+
+/***/ }),
+
 /***/ "./src/components/DecisionButton.js":
 /*!******************************************!*\
   !*** ./src/components/DecisionButton.js ***!
@@ -11376,10 +11459,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.scss */ "./src/index.scss");
 /* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Navigation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Navigation */ "./src/Navigation.js");
+/* harmony import */ var _components_CreateStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/CreateStore */ "./src/components/CreateStore.js");
+
 
 
 var $root = document.querySelector('body');
-var defaultUrl = '/';
+var defaultUrl = '/'; // const store = new CreateStore();
+//  서버상에서 index.html을 보낸 후에 client쪽에서 pathname을 체크해서
+//  적절한 위치로 라우팅해주는 방식이 필요할 듯
+// console.log(window.location.pathname);
+
 new _Navigation__WEBPACK_IMPORTED_MODULE_1__["default"]({
   $root: $root,
   defaultUrl: defaultUrl
@@ -11455,7 +11544,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
-var dataURL = 'https://my-json-server.typicode.com/kakaopay-fe/resources/words';
+var dataURL = 'https://hixxx.me/wordJsonData';
 var statusModular = 3;
 
 var Home = /*#__PURE__*/function (_StatePropagation) {
@@ -11501,7 +11590,7 @@ var Home = /*#__PURE__*/function (_StatePropagation) {
     _this.$githubBlock.href = 'https://github.com/cokepizza';
     _this.$githubBlock.style = 'color: rgba(0, 0, 0, 0.4); text-decoration: none;';
     _this.$informBlock = document.createElement('div');
-    _this.$informBlock.innerHTML = 'Powered by cokepizza @ 2020 kakaopay';
+    _this.$informBlock.innerHTML = 'Powered by SJCorp. Designs @ 2020 SJCorp';
     _this.$footerPrint = document.createElement('div');
     _this.$footerPrint.className = 'Home_footerPrint';
 
@@ -11829,7 +11918,7 @@ var Result = /*#__PURE__*/function () {
     this.$githubBlock.href = 'https://github.com/cokepizza';
     this.$githubBlock.style = 'color: rgba(0, 0, 0, 0.4); text-decoration: none;';
     this.$informBlock = document.createElement('div');
-    this.$informBlock.innerHTML = 'Powered by cokepizza @ 2020 kakaopay';
+    this.$informBlock.innerHTML = 'Powered by SJCorp. Designs @ 2020 SJCorp';
     this.$footerPrint = document.createElement('div');
     this.$footerPrint.className = 'Home_footerPrint';
     this.$footerPrint.appendChild(this.$githubBlock);
