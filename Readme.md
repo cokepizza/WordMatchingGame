@@ -38,7 +38,7 @@ Word Mathing Game. you can play here <https://hixxx.me/wordMatchingGame>
   * SPA & Routing
     * When accessing, only index.html is rendered. Dynamic UI change and routing are implemented with CSR
     * Provide routing of '/', '/result' pages by navigation using the history API
-* Test
-  * Divided into Initialization Phase, Loading Phase and Game Phase to conduct jest test
-  * Check whether each component variable is properly given a value for each step
-  * In the Home component, in the relationship of each component, the scenario is checked for success or failure
+  * Test
+    * Divided into Initialization Phase, Loading Phase and Game Phase to conduct jest test
+    * Check whether each component variable is properly given a value for each step
+    * In the Home component, in the relationship of each component, the scenario is checked for success or failure
