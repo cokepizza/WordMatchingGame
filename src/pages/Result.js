@@ -23,7 +23,7 @@ export default class Result {
         this.$githubBlock.style = 'color: rgba(0, 0, 0, 0.4); text-decoration: none;';
 
         this.$informBlock = document.createElement('div');
-        this.$informBlock.innerHTML = 'Powered by cokepizza @ 2020 kakaopay';
+        this.$informBlock.innerHTML = 'Powered by SJCorp. Designs @ 2020 SJCorp';
         
         this.$footerPrint = document.createElement('div');
         this.$footerPrint.className = 'Home_footerPrint';

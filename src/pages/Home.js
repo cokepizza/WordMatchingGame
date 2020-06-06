@@ -7,7 +7,7 @@ import DecisionButton from '../components/DecisionButton';
 
 import './Home.scss';
 
-const dataURL = 'https://my-json-server.typicode.com/kakaopay-fe/resources/words';
+const dataURL = 'https://hixxx.me/wordJsonData';
 const statusModular = 3;
 
 export default class Home extends StatePropagation {
@@ -40,7 +40,7 @@ export default class Home extends StatePropagation {
         this.$githubBlock.style = 'color: rgba(0, 0, 0, 0.4); text-decoration: none;';
 
         this.$informBlock = document.createElement('div');
-        this.$informBlock.innerHTML = 'Powered by cokepizza @ 2020 kakaopay';
+        this.$informBlock.innerHTML = 'Powered by SJCorp. Designs @ 2020 SJCorp';
         
         this.$footerPrint = document.createElement('div');
         this.$footerPrint.className = 'Home_footerPrint';
